@@ -26,17 +26,17 @@
     </div>
     <!-- Todo: Create a modal with a form to add tasks -->
     <!-- ! add modal here -->
-    <div id="dialog-form" title="Create new user">
+    <div id="dialog-form" title="Create new task">
       <p class="validateTips">All form fields are required.</p>
      
       <form>
         <fieldset>
-          <label for="name">Name</label>
-          <input type="text" name="name" id="name" value="Jane Smith" class="text ui-widget-content ui-corner-all">
-          <label for="email">Email</label>
-          <input type="text" name="email" id="email" value="jane@smith.com" class="text ui-widget-content ui-corner-all">
-          <label for="password">Password</label>
-          <input type="password" name="password" id="password" value="xxxxxxx" class="text ui-widget-content ui-corner-all">
+          <label for="task-name">Task Name</label>
+          <input type="text" name="task-name" id="task-name" value="task name" class="text ui-widget-content ui-corner-all">
+          <label for="task-duedate">Task Due Date</label>
+          <input type="text" name="duedate" id="duedate" value="task due date" class="text ui-widget-content ui-corner-all">
+          <label for="task-description">Task Description</label>
+          <input type="text" name="description" id="description" value="description for task" class="text ui-widget-content ui-corner-all">
      
           <!-- Allow form submission with keyboard without duplicating the dialog button -->
           <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
