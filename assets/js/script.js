@@ -50,6 +50,21 @@ function createTaskCard(task) {
 
 // Todo: create a function to render the task list and make cards draggable
 function renderTaskList() {
+    const tasks = generateTaskId();
+
+    // This is for the To Do swim lane
+    const todoList = $('#todo-cards');
+    todoList.empty();
+
+    // This is for the In Progress swim lane
+    const inProgressList = $('#in-progress-cards');
+    inProgressList.empty();
+
+    // This is for the Done swim lane 
+    const doneList = $('#done-cards');
+    doneList.empty();
+
+    // * Need to add more
 
 }
 
@@ -77,7 +92,7 @@ function handleDrop(event, ui) {
         }
     }
     localStorage.setItem('tasks', JSON.stringify(tasks));
-    
+
     //! THIS STILL NEEDS TO BE DONE 
     renderTaskList();
 
@@ -101,7 +116,8 @@ $( function() {
     //   ! Still need to change these
       allFields = $( [] ).add( name ).add( date ).add( password ),
       tips = $( ".validateTips" );
- 
+
+      // tips is a little more disconnected than everything
     function updateTips( t ) {
       tips
         .text( t )
@@ -110,7 +126,9 @@ $( function() {
         tips.removeClass( "ui-state-highlight", 1500 );
       }, 500 );
     }
- 
+    
+    // ? This might be for the password input from before, 
+    // ? So it might need to be removed 
     function checkLength( o, n, min, max ) {
       if ( o.val().length > max || o.val().length < min ) {
         o.addClass( "ui-state-error" );
@@ -132,7 +150,8 @@ $( function() {
       }
     }
  
-    function addUser() {
+    function addTask() {
+        // ! Any traces of addUser should be addTask
       var valid = true;
       allFields.removeClass( "ui-state-error" );
  
@@ -145,7 +164,8 @@ $( function() {
       valid = valid && checkRegexp( password, /^([0-9a-zA-Z])+$/, "Password field only allow : a-z 0-9" );
  
       if ( valid ) {
-        $( "#users tbody" ).append( "<tr>" +
+        // * users needs to be changed to task later
+        $( "#tasks tbody" ).append( "<tr>" +
           "<td>" + name.val() + "</td>" +
           "<td>" + date.val() + "</td>" +
           "<td>" + password.val() + "</td>" +
@@ -161,7 +181,7 @@ $( function() {
       width: 350,
       modal: true,
       buttons: {
-        "Create a Task": addUser,
+        "Create a Task": addTask,
         Cancel: function() {
           dialog.dialog( "close" );
         }
@@ -174,7 +194,7 @@ $( function() {
  
     form = dialog.find( "form" ).on( "submit", function( event ) {
       event.preventDefault();
-      addUser();
+      addTask();
     });
  
     $( "#create-user" ).button().on( "click", function() {
