@@ -97,8 +97,25 @@ function renderTaskList() {
 
 // Todo: create a function to handle adding a new task
 function handleAddTask(event){
-    
+    event.preventDefault();
 
+    // ! THESE WERE MEANT TO BE FROM CONSTS UP TOP
+    // ! THOSE DO NOT EXIST HERE!! FIND INPUT 
+    const taskName = taskNameInputEl.val().trim();
+    const taskDate = taskDateInputEl.val();
+    // * added trim here since it's also just regular input
+    const taskDescription = taskDescriptionEl.val().trim();
+
+    const newTask = {
+        // * Crypto is referenced from the mini project
+        id: crypto.randomUUID(),
+        name: taskName,
+        duedate: taskDate, 
+        description: taskDescription,
+        status: 'to-do',
+    };
+
+    const projects = read
 }
 
 // Todo: create a function to handle deleting a task
