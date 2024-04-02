@@ -11,6 +11,10 @@ function generateTaskId() {
     // ! COME BACK HERE LATER 
 }
 
+// function saveTasksToStorage(taskList) {
+//     localStorage.setItem('tasks', JSON.stringify(taskList));
+// }
+
 // Todo: create a function to create a task card
 function createTaskCard(task) {
     const taskCard = $('<div>')
