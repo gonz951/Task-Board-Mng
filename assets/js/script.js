@@ -65,6 +65,21 @@ function renderTaskList() {
     doneList.empty();
 
     // * Need to add more
+    // * Tasks comes from the const at the start of this function ONLY
+    for (let task of tasks) {
+        if(task.status === 'to-do') {
+            todoList.append(createTaskCard(task));
+        } else if (task.status === 'in-progress') {
+            inProgressList.append(createTaskCard(task));
+        } else if (task.status === 'done') {
+            doneList.append(createTaskCard(task));
+        }
+    }
+
+    // ! START DRAGGABLE 
+    $('draggable').draggable({
+
+    })
 
 }
 
