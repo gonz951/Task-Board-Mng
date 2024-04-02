@@ -78,13 +78,26 @@ function renderTaskList() {
 
     // ! START DRAGGABLE 
     $('draggable').draggable({
+        opacity: 0.7,
+        zIndex: 100,
 
-    })
+        helper: function (e) {
+            const original = $(e.target).hasClass('ui-draggable')
+            ? $(e.target)
+            : $(e.target).closest('.ui-draggable');
+
+            return original.clone().css({
+                width: original.outerWidth(),
+            });
+        },
+    });
+    // draggable function end 
 
 }
 
 // Todo: create a function to handle adding a new task
 function handleAddTask(event){
+    
 
 }
 
