@@ -50,7 +50,6 @@ function createTaskCard(task) {
 
 // Todo: create a function to render the task list and make cards draggable
 function renderTaskList() {
-    const tasks = 
 
 }
 
@@ -66,7 +65,21 @@ function handleDeleteTask(event){
 
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
+    const tasks = generateTaskId();
 
+    const taskId = ui.draggable[0].dataset.projectId;
+
+    const newStatus = event.target.id;
+
+    for (let task of taskList) {
+        if (task.id === taskId) {
+            task.status = newStatus;
+        }
+    }
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    
+    //! THIS STILL NEEDS TO BE DONE 
+    renderTaskList();
 
 }
 
