@@ -14,7 +14,7 @@ function generateTaskId() {
     // ! COME BACK HERE LATER 
 }
 
-// function saveTasksToStorage(taskList) {
+// function saveTasksToStorage(tasks) {
 //     localStorage.setItem('tasks', JSON.stringify(taskList));
 // }
 
@@ -118,11 +118,16 @@ function handleAddTask(event){
         status: 'to-do',
     };
 
-    // const projects = read
+    // ? Pulling tasks from local storage here, then push
+    // const tasks = taskList
 }
 
 // Todo: create a function to handle deleting a task
 function handleDeleteTask(event){
+    const taskId = $(this).attr('data-task-id');
+    // const tasks = 
+    // ! Need to figure out tasks before doing this
+
 
 }
 
@@ -139,11 +144,10 @@ function handleDrop(event, ui) {
             task.status = newStatus;
         }
     }
-    localStorage.setItem('tasks', JSON.stringify(tasks));
 
+    localStorage.setItem('tasks', JSON.stringify(tasks));
     //! THIS STILL NEEDS TO BE DONE 
     renderTaskList();
-
 }
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
@@ -152,4 +156,9 @@ $(document).ready(function () {
     $( function() {
         $( "#task-due" ).datepicker();
       } );
+    
+      $('.lane').droppable({
+        accept: '.draggable',
+        drop: handleDrop,
+      });
 });
