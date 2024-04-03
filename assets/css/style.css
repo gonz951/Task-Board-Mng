@@ -15,7 +15,13 @@ body {
   cursor: grab;
 }
 
-.task
+/* For tasks based on status */
+.task-late {
+  background-color: #e74c3c;
+}
+.task-today {
+  background-color: #fff5d1;
+}
 
 /* For Modal */
 label, input { display:block; }

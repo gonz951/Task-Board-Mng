@@ -1,23 +1,29 @@
 // Retrieve tasks and nextId from localStorage
-let taskList = JSON.parse(localStorage.getItem("tasks"));
+// let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
+const taskDisplayEl = $('#task-display');
 const taskFormEl = $('#task-form');
 const taskTitleInputEl = $('#task-title');
 const taskDateInputEl = $('#task-due');
 const taskDescriptionEl = $('#task-description');
 
 // Todo: create a function to generate a unique task id
-function generateTaskId() {
+// function generateTaskId() {
+// }
+
+function readTaskFromStorage() {
+    let taskList = JSON.parse(localStorage.getItem("tasks"));
+
     if (!taskList) {
         taskList = [];
     }
     return taskList;
-    // ! COME BACK HERE LATER 
 }
+// ! COME BACK HERE LATER 
 
-// function saveTasksToStorage(tasks) {
-//     localStorage.setItem('tasks', JSON.stringify(taskList));
-// }
+function saveTasksToStorage(taskList) {
+    localStorage.setItem('tasks', JSON.stringify(taskList));
+}
 
 // Todo: create a function to create a task card
 function createTaskCard(task) {
@@ -54,7 +60,7 @@ function createTaskCard(task) {
 
 // Todo: create a function to render the task list and make cards draggable
 function renderTaskList() {
-    const tasks = generateTaskId();
+    // const tasks = generateTaskId();
 
     // This is for the To Do swim lane
     const todoList = $('#todo-cards');
@@ -103,8 +109,7 @@ function renderTaskList() {
 function handleAddTask(event){
     event.preventDefault();
 
-    // ! THESE WERE MEANT TO BE FROM CONSTS UP TOP
-    // ! THOSE DO NOT EXIST HERE!! FIND INPUT 
+    // * Consts up top now exist; monitor closely! 
     const taskTitle = taskTitleInputEl.val().trim();
     const taskDate = taskDateInputEl.val();
     // * added trim here since it's also just regular input
@@ -134,7 +139,7 @@ function handleDeleteTask(event){
 
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
-    const tasks = generateTaskId();
+    // const tasks = generateTaskId();
 
     const taskId = ui.draggable[0].dataset.projectId;
 
@@ -152,7 +157,14 @@ function handleDrop(event, ui) {
 }
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
+taskFormEl.on('submit', handleAddTask);
+
+taskDisplayEl.on('click', '.btn-delte-task', handleDeleteTask);
+
+
 $(document).ready(function () {
+
+
 
     $( function() {
         $( "#task-due" ).datepicker();
