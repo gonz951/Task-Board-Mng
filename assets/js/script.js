@@ -102,7 +102,6 @@ function renderTaskList() {
         },
     });
     // draggable function end 
-
 }
 
 // Todo: create a function to handle adding a new task
@@ -125,16 +124,16 @@ function handleAddTask(event){
     };
 
     // ? Pulling tasks from local storage here, then push
-     const tasks = readTaskFromStorage();
-     tasks.push(newTask);
+    const tasks = readTaskFromStorage();
+    tasks.push(newTask);
 
-     saveTasksToStorage(tasks);
+    saveTasksToStorage(tasks);
 
-     renderTaskList();
+    renderTaskList();
 
-     taskTitleInputEl.val('');
-     taskDateInputEl.val('');
-     taskDescriptionEl.val('');
+    taskTitleInputEl.val('');
+    taskDateInputEl.val('');
+    taskDescriptionEl.val('');
 }
 
 // Todo: create a function to handle deleting a task
@@ -148,20 +147,20 @@ function handleDeleteTask(event){
 
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
-    // const tasks = generateTaskId();
+    const tasks = readTaskFromStorage();
 
-    const taskId = ui.draggable[0].dataset.projectId;
+    const taskId = ui.draggable[0].dataset.taskId;
 
     const newStatus = event.target.id;
 
-    for (let task of taskList) {
+    for (let task of tasks) {
         if (task.id === taskId) {
             task.status = newStatus;
         }
     }
 
     localStorage.setItem('tasks', JSON.stringify(tasks));
-    //! THIS STILL NEEDS TO BE DONE 
+    // * render task list is finished
     renderTaskList();
 }
 
@@ -172,15 +171,15 @@ taskDisplayEl.on('click', '.btn-delte-task', handleDeleteTask);
 
 
 $(document).ready(function () {
-
-
+    // * equivalent of printProjectData 
+    renderTaskList();
 
     $( function() {
-        $( "#task-due" ).datepicker();
-      } );
+        $("#task-due").datepicker();
+    });
     
-      $('.lane').droppable({
-        accept: '.draggable',
-        drop: handleDrop,
-      });
+    $('.lane').droppable({
+    accept: '.draggable',
+    drop: handleDrop,
+    });
 });
