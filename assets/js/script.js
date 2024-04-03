@@ -60,7 +60,7 @@ function createTaskCard(task) {
 
 // Todo: create a function to render the task list and make cards draggable
 function renderTaskList() {
-    // const tasks = generateTaskId();
+    const tasks = readTaskFromStorage();
 
     // This is for the To Do swim lane
     const todoList = $('#todo-cards');
@@ -125,7 +125,16 @@ function handleAddTask(event){
     };
 
     // ? Pulling tasks from local storage here, then push
-    // const tasks = taskList
+     const tasks = readTaskFromStorage();
+     tasks.push(newTask);
+
+     saveTasksToStorage(tasks);
+
+     renderTaskList();
+
+     taskTitleInputEl.val('');
+     taskDateInputEl.val('');
+     taskDescriptionEl.val('');
 }
 
 // Todo: create a function to handle deleting a task
