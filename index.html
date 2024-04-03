@@ -26,23 +26,27 @@
     </div>
     <!-- Todo: Create a modal with a form to add tasks -->
     <!-- ! add modal here -->
-    <!-- Need to adjust naming -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- * Already adjusted naming -->
+    <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+            <h5 class="modal-title" id="formModalLabel">New Task</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <form>
               <div class="mb-3">
-                <label for="recipient-name" class="col-form-label">Recipient:</label>
-                <input type="text" class="form-control" id="recipient-name">
+                <label for="task-title" class="col-form-label">Task Title:</label>
+                <input type="text" class="form-control" id="task-title">
               </div>
               <div class="mb-3">
-                <label for="message-text" class="col-form-label">Message:</label>
-                <textarea class="form-control" id="message-text"></textarea>
+                <label for="task-due" class="col-form-label">Task Due Date:</label>
+                <input type="text" class="form-control" id="task-due">
+              </div>
+              <div class="mb-3">
+                <label for="task-description" class="col-form-label">Task Description:</label>
+                <textarea class="form-control" id="task-description"></textarea>
               </div>
             </form>
           </div>
