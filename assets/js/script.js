@@ -1,6 +1,9 @@
 // Retrieve tasks and nextId from localStorage
 let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
+const taskTitleInputEl = $('#task-title');
+const taskDateInputEl = $('#task-due');
+const taskDescriptionEl = $('#task-description');
 
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
@@ -101,7 +104,7 @@ function handleAddTask(event){
 
     // ! THESE WERE MEANT TO BE FROM CONSTS UP TOP
     // ! THOSE DO NOT EXIST HERE!! FIND INPUT 
-    const taskName = taskNameInputEl.val().trim();
+    const taskTitle = taskTitleInputEl.val().trim();
     const taskDate = taskDateInputEl.val();
     // * added trim here since it's also just regular input
     const taskDescription = taskDescriptionEl.val().trim();
@@ -109,13 +112,13 @@ function handleAddTask(event){
     const newTask = {
         // * Crypto is referenced from the mini project
         id: crypto.randomUUID(),
-        name: taskName,
+        name: taskTitle,
         duedate: taskDate, 
         description: taskDescription,
         status: 'to-do',
     };
 
-    const projects = read
+    // const projects = read
 }
 
 // Todo: create a function to handle deleting a task
@@ -147,4 +150,3 @@ function handleDrop(event, ui) {
 $(document).ready(function () {
 
 });
-
