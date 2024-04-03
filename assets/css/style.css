@@ -15,6 +15,8 @@ body {
   cursor: grab;
 }
 
+.task
+
 /* For Modal */
 label, input { display:block; }
     input.text { margin-bottom:12px; width:95%; padding: .4em; }
