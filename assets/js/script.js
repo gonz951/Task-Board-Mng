@@ -1,6 +1,6 @@
 // Retrieve tasks and nextId from localStorage
 // let taskList = JSON.parse(localStorage.getItem("tasks"));
-let nextId = JSON.parse(localStorage.getItem("nextId"));
+// let nextId = JSON.parse(localStorage.getItem("nextId"));
 const taskDisplayEl = $('#task-display');
 const taskFormEl = $('#task-form');
 const taskTitleInputEl = $('#task-title');
@@ -12,7 +12,7 @@ const taskDescriptionEl = $('#task-description');
 // }
 
 function readTaskFromStorage() {
-    let tasks = JSON.parse(localStorage.getItem("tasks"));
+    let tasks = JSON.parse(localStorage.getItem('tasks'));
 
     if (!tasks) {
         tasks = [];
@@ -77,7 +77,7 @@ function renderTaskList() {
     // * Need to add more
     // * Tasks comes from the const at the start of this function ONLY
     for (let task of tasks) {
-        if(task.status === 'to-do') {
+        if (task.status === 'to-do') {
             todoList.append(createTaskCard(task));
         } else if (task.status === 'in-progress') {
             inProgressList.append(createTaskCard(task));
@@ -181,12 +181,13 @@ $(document).ready(function () {
     // * equivalent of printProjectData 
     renderTaskList();
 
-    $( function() {
-        $("#task-due").datepicker();
+    $('#task-due').datepicker({
+        changeMonth: true,
+        changeYear: true,
     });
     
     $('.lane').droppable({
-    accept: '.draggable',
-    drop: handleDrop,
+        accept: '.draggable',
+        drop: handleDrop,
     });
 });
