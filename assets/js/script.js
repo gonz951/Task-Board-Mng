@@ -12,17 +12,17 @@ const taskDescriptionEl = $('#task-description');
 // }
 
 function readTaskFromStorage() {
-    let taskList = JSON.parse(localStorage.getItem("tasks"));
+    let tasks = JSON.parse(localStorage.getItem("tasks"));
 
-    if (!taskList) {
-        taskList = [];
+    if (!tasks) {
+        tasks = [];
     }
-    return taskList;
+    return tasks;
 }
 // ! COME BACK HERE LATER 
 
-function saveTasksToStorage(taskList) {
-    localStorage.setItem('tasks', JSON.stringify(taskList));
+function saveTasksToStorage(tasks) {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 // Todo: create a function to create a task card
@@ -30,7 +30,7 @@ function createTaskCard(task) {
     const taskCard = $('<div>')
         .addClass('card task-card draggable my-3')
         .attr('data-task-id', task.id);
-    const cardHeader = $('<div>').addClass('card-header h4').text(task.name)
+    const cardHeader = $('<div>').addClass('card-header h4').text(task.name);
     const cardBody = $('<div').addClass('card-body');
     const cardDescription = $('<p>').addClass('card-text').text(task.type);
     const cardDueDate = $('<p>').addClass('card-text').text(task.duedate);
@@ -139,22 +139,29 @@ function handleAddTask(event){
 // Todo: create a function to handle deleting a task
 function handleDeleteTask(event){
     const taskId = $(this).attr('data-task-id');
-    // const tasks = 
-    // ! Need to figure out tasks before doing this
+    const tasks = readTaskFromStorage();
 
+    tasks.forEach((task) => {
+        if (task.id === taskId) {
+            tasks.splice(tasks.indexOf(task), 1);
+        }
+    });
 
+    saveTasksToStorage(tasks);
+
+    renderTaskList();
 }
 
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
     const tasks = readTaskFromStorage();
 
-    const taskId = ui.draggable[0].dataset.taskId;
+    const cardId = ui.draggable[0].dataset.taskId;
 
     const newStatus = event.target.id;
 
     for (let task of tasks) {
-        if (task.id === taskId) {
+        if (task.id === cardId) {
             task.status = newStatus;
         }
     }
@@ -167,7 +174,7 @@ function handleDrop(event, ui) {
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 taskFormEl.on('submit', handleAddTask);
 
-taskDisplayEl.on('click', '.btn-delte-task', handleDeleteTask);
+taskDisplayEl.on('click', '.btn-delete-task', handleDeleteTask);
 
 
 $(document).ready(function () {
