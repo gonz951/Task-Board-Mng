@@ -18,7 +18,7 @@ const taskDescriptionEl = $('#task-description');
 function readTasksFromStorage() {
     // * retrieving tasks from localStorage and parse the JSON to an array.
     // * Using let so things can be added from the if function; fluid
-    let tasks = JSON.parse(localStorage.getItem('tasks'));
+    let tasks = JSON.parse(localStorage.getItem('taskData'));
 
     // * If no tasks in local storage, get tasks into empty array
     // * then return
@@ -98,8 +98,8 @@ function renderTaskList() {
     const doneList = $('#done-cards');
     doneList.empty();
 
-    // * Need to add more
     // * Tasks comes from the const at the start of this function ONLY
+    // * loop through tasks and create task cards for each status
     for (let task of tasks) {
         if (task.status === 'to-do') {
             todoList.append(createTaskCard(task));
@@ -110,7 +110,7 @@ function renderTaskList() {
         }
     }
 
-    // ! START DRAGGABLE 
+    // * starting draggable here
     $('draggable').draggable({
         opacity: 0.7,
         zIndex: 100,
@@ -125,23 +125,25 @@ function renderTaskList() {
             });
         },
     });
-    // draggable function end 
+    // * draggable function end 
 }
 
 // Todo: create a function to handle adding a new task
 function handleAddTask(event){
     event.preventDefault();
 
-    // * Consts up top now exist; monitor closely! 
+    // ? Consts up top now exist; monitor closely! 
+    // * Read user input from the form!
     const taskTitle = taskTitleInputEl.val().trim();
     const taskDate = taskDateInputEl.val();
     // * added trim here since it's also just regular input
     const taskDescription = taskDescriptionEl.val().trim();
 
+    // * Making a newTask array to keep the info in
     const newTask = {
         // * Crypto is referenced from the mini project
         id: crypto.randomUUID(),
-        name: taskTitle,
+        title: taskTitle,
         duedate: taskDate, 
         description: taskDescription,
         status: 'to-do',
@@ -151,8 +153,10 @@ function handleAddTask(event){
     const tasks = readTasksFromStorage();
     tasks.push(newTask);
 
+    // * save tasks to tasks array to local storage
     saveTasksToStorage(tasks);
 
+    // * render task data to screen
     renderTaskList();
 
     taskTitleInputEl.val('');
@@ -161,7 +165,8 @@ function handleAddTask(event){
 }
 
 // Todo: create a function to handle deleting a task
-function handleDeleteTask(event){
+// ! removed event from parenthesis
+function handleDeleteTask() {
     const taskId = $(this).attr('data-task-id');
     const tasks = readTasksFromStorage();
 
@@ -171,21 +176,25 @@ function handleDeleteTask(event){
         }
     });
 
+    // * saving tasks to local storage (tasks)
     saveTasksToStorage(tasks);
 
+    // * render tasks to the screen
     renderTaskList();
 }
 
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
+    // * Read tasks in localStorage
     const tasks = readTasksFromStorage();
 
-    const cardId = ui.draggable[0].dataset.taskId;
+    // ? Changed cardId back to taskId
+    const taskId = ui.draggable[0].dataset.taskId;
 
     const newStatus = event.target.id;
 
     for (let task of tasks) {
-        if (task.id === cardId) {
+        if (task.id === taskId) {
             task.status = newStatus;
         }
     }
