@@ -11,9 +11,17 @@ const taskDescriptionEl = $('#task-description');
 // function generateTaskId() {
 // }
 
-function readTaskFromStorage() {
+// ? Making notes to figure out what went wrong. 
+// * This reads tasks from localStorage and returns array of task objects.
+// * if there are no tasks in storage, it initializes it in that 
+// * empty array and returns it.
+function readTasksFromStorage() {
+    // * retrieving tasks from localStorage and parse the JSON to an array.
+    // * Using let so things can be added from the if function; fluid
     let tasks = JSON.parse(localStorage.getItem('tasks'));
 
+    // * If no tasks in local storage, get tasks into empty array
+    // * then return
     if (!tasks) {
         tasks = [];
     }
@@ -21,18 +29,26 @@ function readTaskFromStorage() {
 }
 // ! COME BACK HERE LATER 
 
+// * accepts the array of objects, stringify, 
+// * and saves them to tasks in localStorage.
 function saveTasksToStorage(tasks) {
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 // Todo: create a function to create a task card
+// * Creating a task card
 function createTaskCard(task) {
+    // * Start with the task card div, then add everything else
     const taskCard = $('<div>')
         .addClass('card task-card draggable my-3')
         .attr('data-task-id', task.id);
-    const cardHeader = $('<div>').addClass('card-header h4').text(task.name);
+    // * header, body, description, due date, and delete button 
+    // * are all here.
+    // ? Changed the task.name to task.title
+    const cardHeader = $('<div>').addClass('card-header h4').text(task.title);
     const cardBody = $('<div').addClass('card-body');
-    const cardDescription = $('<p>').addClass('card-text').text(task.type);
+    // ? changed the task.type to task.description
+    const cardDescription = $('<p>').addClass('card-text').text(task.description);
     const cardDueDate = $('<p>').addClass('card-text').text(task.duedate);
     const cardDeleteBtn = $('<button>')
         .addClass('btn btn-danger delete')
@@ -40,6 +56,8 @@ function createTaskCard(task) {
         .attr('data-task-id', task.id);
     cardDeleteBtn.on('click', handleDeleteTask);
 
+    // * Sets the card background color based on due date
+    // * Might not be needed but *shrug*
     if(task.duedate && task.status !== 'done') {
         const now = dayjs();
         const taskDueDate = dayjs(task.dueDate, 'DD/MM/YYYY');
@@ -52,16 +70,22 @@ function createTaskCard(task) {
         }
     }
 
+    // * Gather elements from above and append them to the card body created
+    // * append things needed to card body.
     cardBody.append(cardDescription, cardDueDate, cardDeleteBtn);
     taskCard.append(cardHeader, cardBody);
 
+    // * return the task card so it can be appended to the correct lane.
     return taskCard;
 }
 
 // Todo: create a function to render the task list and make cards draggable
+// * Working under the idea that this is the equivalent of 
+// * printProjectData from mini proj.
 function renderTaskList() {
-    const tasks = readTaskFromStorage();
+    const tasks = readTasksFromStorage();
 
+    // * emptying existing project cards out of swim lanes
     // This is for the To Do swim lane
     const todoList = $('#todo-cards');
     todoList.empty();
@@ -124,7 +148,7 @@ function handleAddTask(event){
     };
 
     // ? Pulling tasks from local storage here, then push
-    const tasks = readTaskFromStorage();
+    const tasks = readTasksFromStorage();
     tasks.push(newTask);
 
     saveTasksToStorage(tasks);
@@ -139,7 +163,7 @@ function handleAddTask(event){
 // Todo: create a function to handle deleting a task
 function handleDeleteTask(event){
     const taskId = $(this).attr('data-task-id');
-    const tasks = readTaskFromStorage();
+    const tasks = readTasksFromStorage();
 
     tasks.forEach((task) => {
         if (task.id === taskId) {
@@ -154,7 +178,7 @@ function handleDeleteTask(event){
 
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
-    const tasks = readTaskFromStorage();
+    const tasks = readTasksFromStorage();
 
     const cardId = ui.draggable[0].dataset.taskId;
 
