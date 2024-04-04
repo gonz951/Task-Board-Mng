@@ -1,6 +1,6 @@
 // Retrieve tasks and nextId from localStorage
-// let taskList = JSON.parse(localStorage.getItem("tasks"));
-// let nextId = JSON.parse(localStorage.getItem("nextId"));
+let taskList = JSON.parse(localStorage.getItem("tasks"));
+let nextId = JSON.parse(localStorage.getItem("nextId"));
 const taskDisplayEl = $('#task-display');
 const taskFormEl = $('#task-form');
 const taskTitleInputEl = $('#task-title');
@@ -8,8 +8,9 @@ const taskDateInputEl = $('#task-due');
 const taskDescriptionEl = $('#task-description');
 
 // Todo: create a function to generate a unique task id
-// function generateTaskId() {
-// }
+function generateTaskId() {
+    
+}
 
 // ? Making notes to figure out what went wrong. 
 // * This reads tasks from localStorage and returns array of task objects.
@@ -18,13 +19,14 @@ const taskDescriptionEl = $('#task-description');
 function readTasksFromStorage() {
     // * retrieving tasks from localStorage and parse the JSON to an array.
     // * Using let so things can be added from the if function; fluid
-    let tasks = JSON.parse(localStorage.getItem('taskData'));
+    // let tasks = JSON.parse(localStorage.getItem('taskData'));
 
     // * If no tasks in local storage, get tasks into empty array
     // * then return
-    if (!tasks) {
+    if (!taskList) {
         tasks = [];
     }
+    console.log(tasks);
     return tasks;
 }
 // ! COME BACK HERE LATER 
@@ -194,6 +196,7 @@ function handleDrop(event, ui) {
     const newStatus = event.target.id;
 
     for (let task of tasks) {
+        // * Find task card by id and update task status
         if (task.id === taskId) {
             task.status = newStatus;
         }
@@ -205,8 +208,12 @@ function handleDrop(event, ui) {
 }
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
+// * Add event listener to form element 
+// * listen for a submit event
+// * Then call handleAddTask
 taskFormEl.on('submit', handleAddTask);
 
+// * Same for handleDeleteTask, except it's based on the button class
 taskDisplayEl.on('click', '.btn-delete-task', handleDeleteTask);
 
 
