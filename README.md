@@ -17,13 +17,16 @@ It's a webpage; Nothing more than this:
 
 ## Usage
 
-Provide instructions and examples for use. Include screenshots as needed.
+The site is blank at first, and pressing the 'Add Task' button takes you to a modal.
+![image of main page(empty)](./assets/images/screenshot-task1.png)
 
-To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
+This is the modal.
+![image of modal](./assets/images/screenshot-task2.png)
 
-    ```md
-    ![alt text](assets/images/screenshot.png)
-    ```
+The 'due date' field has a datepicker attached.
+![image of datepicker](./assets/images/screenshot-task3.png)
+
+There would be more if it worked, but currently the JavaScript is at a stalemate with itself. Apologies.
 
 ## Credits
 
