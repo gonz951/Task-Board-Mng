@@ -9,7 +9,8 @@ const taskDescriptionEl = $('#task-description');
 
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
-    
+    const taskNum = Math.floor(Math.random() * 50);
+    return taskNum;
 }
 
 // ? Making notes to figure out what went wrong. 
@@ -144,7 +145,7 @@ function handleAddTask(event){
     // * Making a newTask array to keep the info in
     const newTask = {
         // * Crypto is referenced from the mini project
-        id: crypto.randomUUID(),
+        id: generateTaskId(),
         title: taskTitle,
         duedate: taskDate, 
         description: taskDescription,
