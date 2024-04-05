@@ -1,15 +1,10 @@
-# <Your-Project-Title>
+# Task-Board-Mng
 
 ## Description
 
-Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
+This was meant to be a way to get used to jQuery, dayjs, and bootstrap components. Most of the work was done in script.js, to which I mostly stumbled. I got nothing working, but I will get help later.
 
-- What was your motivation?
-- Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
-- What problem does it solve?
-- What did you learn?
-
-## Table of Contents (Optional)
+## Table of Contents
 
 If your README is long, add a table of contents to make it easy for users to find what they need.
 
@@ -20,7 +15,7 @@ If your README is long, add a table of contents to make it easy for users to fin
 
 ## Installation
 
-What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
+It's a webpage; Nothing more than this: 
 
 ## Usage
 
@@ -34,11 +29,10 @@ To add a screenshot, create an `assets/images` folder in your repository and upl
 
 ## Credits
 
-List your collaborators, if any, with links to their GitHub profiles.
+Helped figure out what I could use to generate an id:
+https://stackoverflow.com/questions/26203453/jquery-generate-unique-ids
 
-If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section.
-
-If you followed tutorials, include links to those here as well.
+Most code used was from the mini project from Third-Party-APIs.
 
 ## License
 
