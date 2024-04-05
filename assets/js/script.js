@@ -3,16 +3,16 @@ let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
 const taskDisplayEl = $('#task-display');
 const taskFormEl = $('#task-form');
-const taskTitleInputEl = $('#task-title');
-const taskDateInputEl = $('#task-due');
-const taskDescriptionEl = $('#task-description');
+// const taskTitleInputEl = $('#task-title');
+// const taskDateInputEl = $('#task-due');
+// const taskDescriptionEl = $('#task-description');
 
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
     const taskNum = Math.floor(Math.random() * 50);
     return taskNum;
 }
-
+console.log(generateTaskId());
 // ? Making notes to figure out what went wrong. 
 // * This reads tasks from localStorage and returns array of task objects.
 // * if there are no tasks in storage, it initializes it in that 
@@ -44,7 +44,7 @@ function createTaskCard(task) {
     // * Start with the task card div, then add everything else
     const taskCard = $('<div>')
         .addClass('card task-card draggable my-3')
-        .attr('data-task-id', task.id);
+        .attr('data-task-id', task.taskNum);
     // * header, body, description, due date, and delete button 
     // * are all here.
     // ? Changed the task.name to task.title
@@ -56,7 +56,7 @@ function createTaskCard(task) {
     const cardDeleteBtn = $('<button>')
         .addClass('btn btn-danger delete')
         .text('Delete')
-        .attr('data-task-id', task.id);
+        .attr('data-task-id', task.taskNum);
     cardDeleteBtn.on('click', handleDeleteTask);
 
     // * Sets the card background color based on due date
@@ -134,21 +134,20 @@ function renderTaskList() {
 // Todo: create a function to handle adding a new task
 function handleAddTask(event){
     event.preventDefault();
-
+    
     // ? Consts up top now exist; monitor closely! 
     // * Read user input from the form!
-    const taskTitle = taskTitleInputEl.val().trim();
-    const taskDate = taskDateInputEl.val();
-    // * added trim here since it's also just regular input
-    const taskDescription = taskDescriptionEl.val().trim();
+    const taskTitleInputEl = $('#task-title').val().trim();
+    const taskDateInputEl = $('#task-due').val();
+    const taskDescriptionEl = $('#task-description').val().trim();
 
     // * Making a newTask array to keep the info in
     const newTask = {
         // * Crypto is referenced from the mini project
-        id: generateTaskId(),
-        title: taskTitle,
-        duedate: taskDate, 
-        description: taskDescription,
+        taskNum: generateTaskId(),
+        title: taskTitleInputEl,
+        duedate: taskDateInputEl, 
+        description: taskDescriptionEl,
         status: 'to-do',
     };
 
