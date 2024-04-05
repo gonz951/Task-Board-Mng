@@ -1,5 +1,5 @@
 // Retrieve tasks and nextId from localStorage
-let taskList = JSON.parse(localStorage.getItem("tasks"));
+// let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
 const taskDisplayEl = $('#task-display');
 const taskFormEl = $('#task-form');
@@ -14,32 +14,32 @@ function generateTaskId() {
     return taskNum;
 }
 console.log(generateTaskId());
-// // ? Making notes to figure out what went wrong. 
-// // * This reads tasks from localStorage and returns array of task objects.
-// // * if there are no tasks in storage, it initializes it in that 
-// // * empty array and returns it.
-// //function readTasksFromStorage() {
-//     // * retrieving tasks from localStorage and parse the JSON to an array.
-//     // * Using let so things can be added from the if function; fluid
-//     // let tasks = JSON.parse(localStorage.getItem('taskData'));
 
-//     // * If no tasks in local storage, get tasks into empty array
-//     // * then return
-//     //if (!taskList) {
-//       //  tasks = [];
-//     //}
-//     //console.log(tasks);
-//     //return tasks;
-//// }
-// // ! COME BACK HERE LATER 
+// ? Making notes to figure out what went wrong. 
+// * This reads tasks from localStorage and returns array of task objects.
+// * if there are no tasks in storage, it initializes it in that 
+// * empty array and returns it.
+function readTasksFromStorage() {
+    // * retrieving tasks from localStorage and parse the JSON to an array.
+    // * Using let so things can be added from the if function; fluid
+    let tasks = JSON.parse(localStorage.getItem('tasks'));
 
-// // * accepts the array of objects, stringify, 
-// // * and saves them to tasks in localStorage.
-// //function saveTasksToStorage(tasks) {
-//     //localStorage.setItem('tasks', JSON.stringify(tasks));
-// //}
+    // * If no tasks in local storage, get tasks into empty array
+    // * then return
+    if (!tasks) {
+        tasks = [];
+    }
+    console.log(tasks);
+    return tasks;
+}
 
-// ! Commented out a mess; ignore
+// ! COME BACK HERE LATER 
+// * accepts the array of objects, stringify, 
+// * and saves them to tasks in localStorage.
+function saveTasksToStorage(tasks) {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
 
 // Todo: create a function to create a task card
 // * Creating a task card
@@ -89,7 +89,7 @@ function createTaskCard(task) {
 // * Working under the idea that this is the equivalent of 
 // * printProjectData from mini proj.
 function renderTaskList() {
-    // const tasks = readTasksFromStorage();
+    const tasks = readTasksFromStorage();
 
     // * emptying existing project cards out of swim lanes
     // This is for the To Do swim lane
@@ -106,32 +106,15 @@ function renderTaskList() {
 
     // * Tasks comes from the const at the start of this function ONLY
     // * loop through tasks and create task cards for each status
-    if (taskList) {
-        tasks = taskList
-    } else {
-        tasks = []
+    for (let task of tasks) {
+        if (task.status === 'to-do') {
+            todoList.append(createTaskCard(task));
+        } else if (task.status === 'in-progress') {
+            inProgressList.append(createTaskCard(task));
+        } else if (task.status === 'done') {
+            doneList.append(createTaskCard(task));
+        }
     }
-
-    for (let i = 0; i < tasks.length; i++) {
-        let aTask = tasks[i];
-        if (aTask.status === 'to-do') {
-            todoList.append(createTaskCard(aTask));
-        } else if (aTask.status === 'in-progress') {
-            inProgressList.append(createTaskCard(aTask));
-        } else if (aTask.status === 'done') {
-            doneList.append(createTaskCard(aTask));
-        }}
-
-        console.log()
-    // for (let task of tasks) {
-    //     if (task.status === 'to-do') {
-    //         todoList.append(createTaskCard(task));
-    //     } else if (task.status === 'in-progress') {
-    //         inProgressList.append(createTaskCard(task));
-    //     } else if (task.status === 'done') {
-    //         doneList.append(createTaskCard(task));
-    //     }
-    //}
 
     // * starting draggable here
     $('draggable').draggable({
@@ -172,12 +155,11 @@ function handleAddTask(event){
     };
 
     // ? Pulling tasks from local storage here, then push
-    // const tasks = readTasksFromStorage();
+    const tasks = readTasksFromStorage();
     tasks.push(newTask);
-    localStorage.setItem('tasks', JSON.stringify(tasks))
 
     // * save tasks to tasks array to local storage
-    // saveTasksToStorage(tasks);
+    saveTasksToStorage(tasks);
 
     // * render task data to screen
     renderTaskList();
@@ -191,7 +173,7 @@ function handleAddTask(event){
 // ! removed event from parenthesis
 function handleDeleteTask() {
     const taskId = $(this).attr('data-task-id');
-    // const tasks = readTasksFromStorage();
+    const tasks = readTasksFromStorage();
 
     tasks.forEach((task) => {
         if (task.id === taskId) {
@@ -223,7 +205,7 @@ function handleDrop(event, ui) {
         }
     }
 
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+    saveTasksToStorage(tasks);
     // * render task list is finished
     renderTaskList();
 }
@@ -239,8 +221,9 @@ taskDisplayEl.on('click', '.btn-delete-task', handleDeleteTask);
 
 
 $(document).ready(function () {
-    
-    
+    // * equivalent of printProjectData 
+    renderTaskList();
+
     $('#task-due').datepicker({
         changeMonth: true,
         changeYear: true,
@@ -250,6 +233,4 @@ $(document).ready(function () {
         accept: '.draggable',
         drop: handleDrop,
     });
-
-    renderTaskList();
 });
